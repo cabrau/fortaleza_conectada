@@ -1,12 +1,11 @@
 //Lucas Cabral e Lia Aguiar - 2019
-//colisão entre particulas?
 
 Particle[] particles;
 int[][] connections;
 float global_diameter = 0;
 float minimum_mouse_distance = 40;
 float mouse_ellipse = minimum_mouse_distance*2;
-String[] bairros;
+//String[] bairros;
 PFont f;
 PImage background;
 float imgX, imgY;
@@ -14,7 +13,7 @@ float diameter_canvas;
 
 color trackColor; 
 float colThreshold = 20;
-float distThreshold = 65;
+float distThreshold = 15; //65
 ArrayList<Blob> blobs = new ArrayList<Blob>();
 
 import KinectPV2.KJoint;
@@ -25,14 +24,18 @@ KinectPV2 kinect;
 //Distance Threashold
 int maxD = 1000; // 4.5mx
 int minD = 300;  //  50cm
+//int maxD = 1300; // 4.5mx
+//int minD = 400;  //  50cm
 
 void setup() {
   size(1280, 720, P3D);
   //size(640, 360);
-  background(0);  
-  createParticles(500, 0.2, 50); //1000,0.5,50
+  smooth();
+  background(0);
+  noCursor();
+  createParticles(500, 0.4, 50); //1000,0.5,50
   diameter_canvas = height/2;
-  background = loadImage("fdc.png");
+  background = loadImage("fdc_strong.png");
   background.resize(0, 650);
   imgX = width/2 - background.width/2;
   imgY = height/2 - background.height/2;
@@ -54,8 +57,8 @@ void setup() {
 void draw() {
   background(0);
   updateBlobs();
-  image(background, imgX, imgY);
   background(0);
+  image(background, imgX, imgY);  
   showBlobs();
   updateParticles();
 }

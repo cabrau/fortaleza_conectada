@@ -20,7 +20,7 @@ class Particle {
     id = i;
     connecting_diameter = 10;   
     vel_mag = vel.mag();
-    margin = 100;
+    margin = 70;
     left = margin;
     right = width-margin;
     up = margin;
@@ -39,8 +39,10 @@ class Particle {
       acc.set(0, 0);
     }
     vel.add(acc);    
-    vel.limit(20);
+    vel.limit(10);
     pos.add(vel);
+    
+    //limite circular
     PVector center = new PVector(width/2, height/2);
     PVector radius = PVector.sub(pos, center);
     //diameter = map(radius.mag(),0,max_dist,8,2);
@@ -64,7 +66,8 @@ class Particle {
   }
 
   void display() {
-    stroke(42, 162, 161, 150);
+    //stroke(42, 162, 161, 150);
+    stroke(0, 155, 151, 150);
     strokeWeight(strokeW);
     connect();
     noStroke();
@@ -74,6 +77,18 @@ class Particle {
 
 
   void connect() {
+
+
+    for (Blob b : blobs) {
+      float distance = dist(pos.x, pos.y, b.cx, b.cy);
+      if (distance < connecting_diameter) {
+        //stroke(255, 0, 213, 120);
+        //strokeWeight(0.8);
+        line(pos.x, pos.y, b.cx, b.cy);
+      }
+    }
+
+
     for (int i = 0; i < particles.length; i++) {
       if (i==id) { //|| n_connections >= max_connections || particles[i].n_connections >= particles[i].max_connections 
         continue;
@@ -101,21 +116,33 @@ class Particle {
     }
   }
 
-  void interactionMov() {
-    float vx = mouseX-pmouseX;
-    float vy = mouseY-pmouseY;
-    PVector add = new PVector(vx, vy);
-    add.mult(0.04);
-    vel.add(add);
-    //vel.limit(15);
+  void interactionMov(float x, float y, float d) {    
+
+    //float vx = mouseX-pmouseX;
+    //float vy = mouseY-pmouseY;
+    //PVector add = new PVector(vx, vy);
+    //add.mult(0.04);
+    //vel.add(add);
+    ////vel.limit(15);
+    PVector blob = new PVector(x, y);
+    PVector dif = PVector.sub(pos, blob);
+    //dif.normalize();
+    dif.div(d);
+    vel.add(dif);
+    vel.limit(6);
   }
 
 
-  void updateConnectingDiameter() {    
-    float distance = dist(pos.x, pos.y, mouseX, mouseY);
-    if (mousePressed && distance <= minimum_mouse_distance) {
-      connecting_diameter = initial_cd;
-      interactionMov();
-    } else if (connecting_diameter >= 5) connecting_diameter -= 0.1;
+  void updateConnectingDiameter() {
+
+    for (Blob b : blobs) {
+      float distance = dist(pos.x, pos.y, b.cx, b.cy);
+      if (distance <= minimum_mouse_distance) {
+        connecting_diameter = initial_cd;
+        interactionMov(b.cx, b.cy, distance);
+      } else if (connecting_diameter >= 5) {
+        connecting_diameter -= 0.05;
+      }
+    }
   }
 }
