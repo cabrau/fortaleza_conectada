@@ -33,7 +33,7 @@ void setup() {
   smooth();
   background(0);
   noCursor();
-  createParticles(500, 0.4, 50); //1000,0.5,50
+  createParticles(500, 0.6, 50); //1000,0.5,50
   diameter_canvas = height/2;
   background = loadImage("fdc_strong.png");
   background.resize(0, 650);
@@ -61,6 +61,7 @@ void draw() {
   image(background, imgX, imgY);  
   showBlobs();
   updateParticles();
+  //saveFrame("frames/########.png");
 }
 
 void showBlobs() {
@@ -96,7 +97,7 @@ void updateBlobs() {
           }
         }
 
-        if (!found) {
+        if (!found && blobs.size() <= 500 ) {
           Blob b = new Blob(x, y, distThreshold);
           blobs.add(b);
         }
@@ -128,7 +129,7 @@ void createParticles(int size, float vel, float cd) {
     //vel = random(0,vel);
     PVector v = new PVector(vel, 0);
     rot = random(0, TWO_PI);
-    float d = 3; //random(2, 4);
+    float d = random(1,4); //random(2, 4);
     v.rotate(rot);
     float sw = random(0.5, 1);
     particles[i] = new Particle(x, y, v.x, v.y, d, i, sw, cd);
@@ -141,6 +142,8 @@ void createParticles(int size, float vel, float cd) {
     }
   }
 }
+
+
 
 void pointGrid() {
   //background(0);

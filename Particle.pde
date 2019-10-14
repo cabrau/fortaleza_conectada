@@ -66,11 +66,16 @@ class Particle {
   }
 
   void display() {
-    //stroke(42, 162, 161, 150);
-    stroke(0, 155, 151, 150);
+    stroke(255,75);
+    //stroke(0, 155, 151,80); //blue
     strokeWeight(strokeW);
     connect();
     noStroke();
+    
+    //transparency
+    fill(0, 155, 151,5);
+    ellipse(pos.x, pos.y, 100, 100);
+    
     fill(255);
     ellipse(pos.x, pos.y, diameter, diameter);
   }
@@ -141,7 +146,7 @@ class Particle {
         connecting_diameter = initial_cd;
         interactionMov(b.cx, b.cy, distance);
       } else if (connecting_diameter >= 5) {
-        connecting_diameter -= 0.05;
+        connecting_diameter -= 0.04;
       }
     }
   }

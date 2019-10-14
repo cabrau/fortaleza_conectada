@@ -12,7 +12,7 @@ class Blob {
   float cx, cy, pcx, pcy;
   float vx, vy;
   //color c = color(0, 155, 151, 60); //0, 155, 151, 60
-  color c = color(255,0,213,50);
+  color c = color(255,0,213,5);
 
   Blob(float x, float y, float d) {
     minx = x;
@@ -37,7 +37,7 @@ class Blob {
       float distance = dist(cx, cy, b.cx, b.cy);
       if (distance < 30) {
         //stroke(255,0,213,100);
-        stroke(c);
+        stroke(255,25);
         strokeWeight(1);
         line(cx, cy, b.cx, b.cy);
       }
@@ -45,7 +45,9 @@ class Blob {
 
     noStroke();
     fill(c);
-    ellipse(cx, cy, 4, 4);
+    ellipse(cx, cy, 50, 50);
+    fill(255);
+    //ellipse(cx, cy, 2, 2);
   }
 
   void add(float x, float y) {
