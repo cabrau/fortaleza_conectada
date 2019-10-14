@@ -131,7 +131,7 @@ void createParticles(int size, float vel, float cd) {
     rot = random(0, TWO_PI);
     float d = random(1,4); //random(2, 4);
     v.rotate(rot);
-    float sw = random(0.5, 1);
+    float sw = random(0.5, 2);
     particles[i] = new Particle(x, y, v.x, v.y, d, i, sw, cd);
   }
 

@@ -12,7 +12,7 @@ class Blob {
   float cx, cy, pcx, pcy;
   float vx, vy;
   //color c = color(0, 155, 151, 60); //0, 155, 151, 60
-  color c = color(255,0,213,5);
+  color c = color(255,0,213,10);
 
   Blob(float x, float y, float d) {
     minx = x;
@@ -37,8 +37,8 @@ class Blob {
       float distance = dist(cx, cy, b.cx, b.cy);
       if (distance < 30) {
         //stroke(255,0,213,100);
-        stroke(255,25);
-        strokeWeight(1);
+        stroke(255,50);
+        strokeWeight(2);
         line(cx, cy, b.cx, b.cy);
       }
     }
